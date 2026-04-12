@@ -4,7 +4,13 @@ body {
   box-sizing: border-box;
   background-color: #121010;
 }
-
+body > p {
+  color: #e8d5c4;
+  padding: 10px 20px;
+}
+body > p a {
+  color: #f5ede0;
+}
 #root {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
