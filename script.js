@@ -15,13 +15,13 @@ function createEpisodeCard(episode) {
   const episodeCode = `S${season.toString().padStart(2, "0")}E${number.toString().padStart(2, "0")}`;
   const title = document.createElement("h3");
   title.textContent = `${name} - ${episodeCode}`;
-  card.append(title);
+
   const imageOfEpisode = document.createElement("img");
   imageOfEpisode.src = image.medium;
-  card.append(imageOfEpisode);
+
   const summaryElement = document.createElement("p");
   summaryElement.innerHTML = summary;
-  card.append(summaryElement);
+  card.append(title, imageOfEpisode, summaryElement);
   return card;
 }
 window.onload = setup;
