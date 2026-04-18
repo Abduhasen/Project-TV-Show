@@ -31,6 +31,7 @@ function createLayout() {
 
   // COUNT DISPLAY
   countDisplay = document.createElement("p");
+  countDisplay.classList.add("count-display");
 
   // RESULTS
   resultsContainer = document.createElement("div");

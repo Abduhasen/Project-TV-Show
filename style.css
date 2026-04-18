@@ -14,6 +14,10 @@ body > p a {
 #root {
 }
 
+.count-display {
+  color: white;
+}
+
 .results-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
