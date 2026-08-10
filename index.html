@@ -12,11 +12,23 @@
 
   <body>
     <div id="root"></div>
+    <template id="episodes-template">
+      <article class="movie-card">
+        <h3 class="episode-title"></h3>
+        <p class="episode-season"></p>
+        <img class="episode-image" src="" alt="" />
+        <p class="episode-summery"></p>
+      </article>
+    </template>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
 
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
+    <footer>
+      Data sourced from
+      <a href="https://tvmaze.com">TVMaze.com (https://tvmaze.com/)</a>
+    </footer>
   </body>
 </html>
