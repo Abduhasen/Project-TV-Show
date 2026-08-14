@@ -11,7 +11,18 @@
   </head>
 
   <body>
+    <header class="search-container">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search episodes..."
+        aria-label="Search episodes"
+      />
+      <span id="search-count"></span>
+    </header>
+
     <div id="root"></div>
+
     <template id="episodes-template">
       <article class="movie-card">
         <h3 class="episode-title"></h3>
