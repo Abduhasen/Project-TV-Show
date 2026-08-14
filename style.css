@@ -84,3 +84,23 @@ footer a {
   font-size: 14px;
   margin: 0 0 10px 0;
 }
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0;
+  color: #ffffff;
+}
+
+#search-input {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#search-count {
+  color: #ffffff;
+  font-size: 0.95rem;
+}
