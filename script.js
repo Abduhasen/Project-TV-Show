@@ -46,20 +46,29 @@ async function setup() {
     if (searchInput) {
       searchInput.addEventListener("input", (event) => {
         const searchTerm = event.target.value.toLowerCase().trim();
+
         if (episodeSelect) {
           episodeSelect.value = "ALL";
         }
+
         const filteredEpisodes = allEpisodes.filter((episode) => {
           const nameMatch = episode.name.toLowerCase().includes(searchTerm);
+
           const summaryMatch = episode.summary
-            ? episode.summary.toLowerCase().includes(searchTerm)
+            ? episode.summary
+                .replace(/<[^>]*>/g, "")
+                .toLowerCase()
+                .includes(searchTerm)
             : false;
+
           return nameMatch || summaryMatch;
         });
+
         makePageForEpisodes(filteredEpisodes);
         updateCount(filteredEpisodes.length);
       });
     }
+
     // Dropdown selection listener
     if (episodeSelect) {
       episodeSelect.addEventListener("change", (event) => {
