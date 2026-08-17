@@ -9,10 +9,9 @@
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
-
   <body>
     <header class="search-container">
-
+      <select id="show-select" aria-label="Select a show"></select>
       <select id="episode-select" aria-label="Select an episode"></select>
 
       <input
@@ -21,29 +20,25 @@
         placeholder="Search episodes..."
         aria-label="Search episodes"
       />
-      <span id="search-count"></span>
+
+      <span id="search-count">Loading shows...</span>
     </header>
 
     <div id="root"></div>
-
     <template id="episodes-template">
-      <article class="movie-card">
-        <h3 class="episode-title"></h3>
-        <p class="episode-season"></p>
+      <article class="episode-card">
+        <h2 class="episode-title"></h2>
         <img class="episode-image" src="" alt="" />
-        <p class="episode-summery"></p>
+        <div class="episode-summary"></div>
+        <button class="episode-link" type="button">View on TVMaze</button>
       </article>
     </template>
-
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
-
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-
     <footer>
       Data sourced from
-      <a href="https://tvmaze.com">TVMaze.com (https://tvmaze.com/)</a>
+      <a href="https://tvmaze.com" target="_blank" rel="noopener noreferrer">
+        TVMaze.com
+      </a>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>
