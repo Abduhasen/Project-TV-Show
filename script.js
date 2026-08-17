@@ -32,40 +32,35 @@ function getEpisodesForShow(showId) {
   }
   return episodeCache[showId];
 }
-
 async function setup() {
   const showsRoot = document.getElementById("shows-root");
   const showsControls = document.getElementById("shows-controls");
   const showSearchInput = document.getElementById("show-search-input");
   const showSearchCount = document.getElementById("show-search-count");
+  const showSelect = document.getElementById("show-select");
   const episodesRoot = document.getElementById("root");
   const episodesControls = document.getElementById("episodes-controls");
   const backToShows = document.getElementById("back-to-shows");
-  const episodeSelect = document.getElementById("episode-select");
+  const episodeDropdown = document.getElementById("episode-select");
   const searchInput = document.getElementById("search-input");
   const searchCount = document.getElementById("search-count");
   const showsTemplate = document.getElementById("shows-template");
   const episodesTemplate = document.getElementById("episodes-template");
-
   let currentEpisodes = [];
   let currentShowName = "";
-
   try {
     const allShows = await getAllShows();
-
     allShows.sort((a, b) =>
       a.name.localeCompare(b.name, undefined, {
         sensitivity: "base",
       }),
     );
-
     makePageForShows(allShows);
     updateShowCount(allShows.length);
-
+    fillShowDropdown(allShows);
     function updateShowCount(numberOfShows) {
       showSearchCount.textContent = `Displaying ${numberOfShows}/${allShows.length} shows`;
     }
-
     showSearchInput.addEventListener("input", (event) => {
       const searchTerm = event.target.value.toLowerCase().trim();
       const filteredShows = allShows.filter((show) => {
@@ -81,14 +76,21 @@ async function setup() {
               .toLowerCase()
               .includes(searchTerm)
           : false;
-
         return nameMatch || genresMatch || summaryMatch;
       });
-
       makePageForShows(filteredShows);
       updateShowCount(filteredShows.length);
+      fillShowDropdown(filteredShows);
     });
+    showSelect.addEventListener("change", (event) => {
+      const selectedShowId = event.target.value;
 
+      if (selectedShowId === "") {
+        return;
+      }
+
+      loadShow(selectedShowId);
+    });
     async function loadShow(showId) {
       try {
         const selectedShow = allShows.find(
@@ -100,7 +102,7 @@ async function setup() {
         currentShowName = selectedShow.name;
         currentEpisodes = await getEpisodesForShow(showId);
         searchInput.value = "";
-        populateEpisodeSelect(currentEpisodes);
+        fillEpisodeDropdown(currentEpisodes);
         showsRoot.hidden = true;
         showsControls.hidden = true;
         episodesRoot.hidden = false;
@@ -113,14 +115,33 @@ async function setup() {
         searchCount.textContent = "Error loading episodes.";
       }
     }
+    function fillShowDropdown(shows) {
+      showSelect.innerHTML = "";
 
-    function populateEpisodeSelect(episodes) {
-      episodeSelect.innerHTML = `<option value="ALL">All Episodes</option>`;
+      const defaultOption = document.createElement("option");
+
+      defaultOption.value = "";
+      defaultOption.textContent = "Select a show";
+
+      showSelect.appendChild(defaultOption);
+
+      shows.forEach((show) => {
+        const option = document.createElement("option");
+
+        option.value = show.id;
+        option.textContent = show.name;
+
+        showSelect.appendChild(option);
+      });
+    }
+    function fillEpisodeDropdown(episodes) {
+      episodeDropdown.innerHTML = `<option value="ALL">All Episodes</option>`;
+
       episodes.forEach((episode) => {
         const option = document.createElement("option");
         option.value = episode.id;
         option.textContent = `${formatEpisodeCode(episode)} - ${episode.name}`;
-        episodeSelect.appendChild(option);
+        episodeDropdown.appendChild(option);
       });
     }
     function updateCount(numberOfEpisodes) {
@@ -128,7 +149,7 @@ async function setup() {
     }
     searchInput.addEventListener("input", (event) => {
       const searchTerm = event.target.value.toLowerCase().trim();
-      episodeSelect.value = "ALL";
+      episodeDropdown.value = "ALL";
       const filteredEpisodes = currentEpisodes.filter((episode) => {
         const nameMatch = episode.name.toLowerCase().includes(searchTerm);
         const summaryMatch = episode.summary
@@ -137,13 +158,12 @@ async function setup() {
               .toLowerCase()
               .includes(searchTerm)
           : false;
-
         return nameMatch || summaryMatch;
       });
       makePageForEpisodes(filteredEpisodes, currentShowName);
       updateCount(filteredEpisodes.length);
     });
-    episodeSelect.addEventListener("change", (event) => {
+    episodeDropdown.addEventListener("change", (event) => {
       const selectedId = event.target.value;
       searchInput.value = "";
       if (selectedId === "ALL") {
@@ -165,9 +185,9 @@ async function setup() {
       showsRoot.hidden = false;
       showsControls.hidden = false;
       searchInput.value = "";
-      episodeSelect.value = "ALL";
+      episodeDropdown.value = "ALL";
+      showSelect.value = "";
     });
-
     function makePageForShows(showList) {
       showsRoot.innerHTML = "";
       const container = document.createElement("div");
@@ -197,7 +217,6 @@ async function setup() {
       });
       showsRoot.appendChild(container);
     }
-
     function makePageForEpisodes(episodeList, showName) {
       episodesRoot.innerHTML = "";
       const heading = document.createElement("h1");
@@ -228,7 +247,6 @@ async function setup() {
     }
   } catch (error) {
     showSearchCount.textContent = "Failed to load TV shows.";
-
     console.error(error);
   }
 }
