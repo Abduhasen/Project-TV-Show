@@ -6,18 +6,25 @@ body {
 }
 
 #root {
+  padding: 20px;
+}
+.episodes-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  padding: 20px;
 }
-
-.controls {
+#root h1 {
+  color: #e8d5c4;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.search-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin: 20px 0 10px 0;
+  gap: 15px;
+  margin: 20px 0;
+  color: #ffffff;
 }
 
 input[type="text"],
@@ -50,7 +57,7 @@ article img {
   border-radius: 8px;
 }
 
-article h3 {
+.episode-title {
   border-radius: 6px;
   padding: 8px;
   background-color: #1a0a0a;
@@ -59,11 +66,26 @@ article h3 {
   color: #f5ede0;
 }
 
-article p {
+.episode-summary {
   color: #e8d5c4;
   font-size: 13px;
   line-height: 1.6;
   opacity: 0.85;
+}
+
+.episode-link {
+  margin-top: 15px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1a0a0a;
+  color: #f5ede0;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.episode-link:hover {
+  background-color: #6a1730;
 }
 
 footer {
@@ -76,21 +98,6 @@ footer {
 
 footer a {
   color: #f5ede0;
-}
-
-.count-display {
-  text-align: center;
-  color: #e8d5c4;
-  font-size: 14px;
-  margin: 0 0 10px 0;
-}
-
-.search-container {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin: 20px 0;
-  color: #ffffff;
 }
 
 #search-input {
