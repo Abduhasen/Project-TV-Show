@@ -38,14 +38,12 @@ async function setup() {
   const showsControls = document.getElementById("shows-controls");
   const showSearchInput = document.getElementById("show-search-input");
   const showSearchCount = document.getElementById("show-search-count");
-
   const episodesRoot = document.getElementById("root");
   const episodesControls = document.getElementById("episodes-controls");
   const backToShows = document.getElementById("back-to-shows");
   const episodeSelect = document.getElementById("episode-select");
   const searchInput = document.getElementById("search-input");
   const searchCount = document.getElementById("search-count");
-
   const showsTemplate = document.getElementById("shows-template");
   const episodesTemplate = document.getElementById("episodes-template");
 
@@ -70,10 +68,8 @@ async function setup() {
 
     showSearchInput.addEventListener("input", (event) => {
       const searchTerm = event.target.value.toLowerCase().trim();
-
       const filteredShows = allShows.filter((show) => {
         const nameMatch = show.name.toLowerCase().includes(searchTerm);
-
         const genresMatch = show.genres
           .join(" ")
           .toLowerCase()
@@ -98,25 +94,18 @@ async function setup() {
         const selectedShow = allShows.find(
           (show) => show.id === Number(showId),
         );
-
         if (!selectedShow) {
           return;
         }
-
         currentShowName = selectedShow.name;
         currentEpisodes = await getEpisodesForShow(showId);
-
         searchInput.value = "";
         populateEpisodeSelect(currentEpisodes);
-
         showsRoot.hidden = true;
         showsControls.hidden = true;
-
         episodesRoot.hidden = false;
         episodesControls.hidden = false;
-
         makePageForEpisodes(currentEpisodes, currentShowName);
-
         updateCount(currentEpisodes.length);
         window.scrollTo(0, 0);
       } catch (error) {
@@ -127,29 +116,21 @@ async function setup() {
 
     function populateEpisodeSelect(episodes) {
       episodeSelect.innerHTML = `<option value="ALL">All Episodes</option>`;
-
       episodes.forEach((episode) => {
         const option = document.createElement("option");
-
         option.value = episode.id;
         option.textContent = `${formatEpisodeCode(episode)} - ${episode.name}`;
-
         episodeSelect.appendChild(option);
       });
     }
-
     function updateCount(numberOfEpisodes) {
       searchCount.textContent = `Displaying ${numberOfEpisodes}/${currentEpisodes.length} episodes`;
     }
-
     searchInput.addEventListener("input", (event) => {
       const searchTerm = event.target.value.toLowerCase().trim();
-
       episodeSelect.value = "ALL";
-
       const filteredEpisodes = currentEpisodes.filter((episode) => {
         const nameMatch = episode.name.toLowerCase().includes(searchTerm);
-
         const summaryMatch = episode.summary
           ? episode.summary
               .replace(/<[^>]*>/g, "")
@@ -159,55 +140,40 @@ async function setup() {
 
         return nameMatch || summaryMatch;
       });
-
       makePageForEpisodes(filteredEpisodes, currentShowName);
-
       updateCount(filteredEpisodes.length);
     });
-
     episodeSelect.addEventListener("change", (event) => {
       const selectedId = event.target.value;
-
       searchInput.value = "";
-
       if (selectedId === "ALL") {
         makePageForEpisodes(currentEpisodes, currentShowName);
-
         updateCount(currentEpisodes.length);
         return;
       }
-
       const selectedEpisode = currentEpisodes.find(
         (episode) => episode.id === Number(selectedId),
       );
-
       if (selectedEpisode) {
         makePageForEpisodes([selectedEpisode], currentShowName);
-
         updateCount(1);
       }
     });
-
     backToShows.addEventListener("click", () => {
       episodesRoot.hidden = true;
       episodesControls.hidden = true;
-
       showsRoot.hidden = false;
       showsControls.hidden = false;
-
       searchInput.value = "";
       episodeSelect.value = "ALL";
     });
 
     function makePageForShows(showList) {
       showsRoot.innerHTML = "";
-
       const container = document.createElement("div");
       container.className = "shows-container";
-
       showList.forEach((show) => {
         const card = showsTemplate.content.cloneNode(true);
-
         const button = card.querySelector(".show-button");
         const title = card.querySelector(".show-title");
         const image = card.querySelector(".show-image");
@@ -216,57 +182,39 @@ async function setup() {
         const status = card.querySelector(".show-status");
         const rating = card.querySelector(".show-rating");
         const runtime = card.querySelector(".show-runtime");
-
         title.textContent = show.name;
-
         image.src = show.image?.medium || "";
         image.alt = show.name;
-
         summary.innerHTML = show.summary || "No summary available.";
-
         genres.textContent = `Genres: ${show.genres.join(", ")}`;
-
         status.textContent = `Status: ${show.status}`;
-
         rating.textContent = `Rating: ${show.rating?.average || "N/A"}`;
-
         runtime.textContent = `Runtime: ${show.runtime || "N/A"} minutes`;
-
         button.addEventListener("click", () => {
           loadShow(show.id);
         });
-
         container.appendChild(card);
       });
-
       showsRoot.appendChild(container);
     }
 
     function makePageForEpisodes(episodeList, showName) {
       episodesRoot.innerHTML = "";
-
       const heading = document.createElement("h1");
       heading.textContent = `${showName} Episodes`;
       episodesRoot.appendChild(heading);
-
       const container = document.createElement("div");
       container.className = "episodes-container";
-
       episodeList.forEach((episode) => {
         const card = episodesTemplate.content.cloneNode(true);
-
         const title = card.querySelector(".episode-title");
         const image = card.querySelector(".episode-image");
         const summary = card.querySelector(".episode-summary");
         const link = card.querySelector(".episode-link");
-
         title.textContent = `${episode.name} - ${formatEpisodeCode(episode)}`;
-
         image.src = episode.image?.medium || "";
         image.alt = episode.name;
-
         summary.innerHTML = episode.summary || "";
-
         if (episode.url) {
           link.addEventListener("click", () => {
             window.open(episode.url, "_blank");
@@ -274,10 +222,8 @@ async function setup() {
         } else {
           link.style.display = "none";
         }
-
         container.appendChild(card);
       });
-
       episodesRoot.appendChild(container);
     }
   } catch (error) {

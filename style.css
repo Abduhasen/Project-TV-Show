@@ -15,7 +15,6 @@ body {
   margin: 20px 0;
   color: #ffffff;
 }
-
 input[type="text"],
 select {
   padding: 10px 15px;
@@ -28,11 +27,9 @@ select {
   cursor: pointer;
   outline: none;
 }
-
 input[type="text"]::placeholder {
   color: rgba(248, 237, 224, 0.5);
 }
-
 #search-input,
 #show-search-input {
   padding: 8px 12px;
@@ -40,25 +37,21 @@ input[type="text"]::placeholder {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
 #search-count,
 #show-search-count {
   color: #ffffff;
   font-size: 0.95rem;
 }
-
 #shows-root,
 #root {
   padding: 20px;
 }
-
 .shows-container,
 .episodes-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
-
 .show-card,
 .episode-card {
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -67,13 +60,11 @@ input[type="text"]::placeholder {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
   background-color: #4a0e1e;
 }
-
 .show-image,
 .episode-image {
   width: 100%;
   border-radius: 8px;
 }
-
 .show-button {
   width: 100%;
   margin-bottom: 20px;
@@ -87,13 +78,11 @@ input[type="text"]::placeholder {
 .show-button:hover {
   background-color: #6a1730;
 }
-
 .show-title {
   margin: 0;
   font-size: 22px;
   text-align: center;
 }
-
 .show-summary,
 .episode-summary {
   color: #e8d5c4;
@@ -101,7 +90,6 @@ input[type="text"]::placeholder {
   line-height: 1.6;
   margin-top: 10px;
 }
-
 .show-genres,
 .show-status,
 .show-rating,
@@ -109,7 +97,6 @@ input[type="text"]::placeholder {
   color: #e8d5c4;
   font-size: 13px;
 }
-
 .episode-title {
   border-radius: 6px;
   padding: 8px;
@@ -118,7 +105,6 @@ input[type="text"]::placeholder {
   margin-bottom: 10px;
   color: #f5ede0;
 }
-
 .episode-link,
 #back-to-shows {
   margin-top: 15px;
@@ -130,18 +116,15 @@ input[type="text"]::placeholder {
   font-size: 14px;
   cursor: pointer;
 }
-
 .episode-link:hover,
 #back-to-shows:hover {
   background-color: #6a1730;
 }
-
 #shows-root h1,
 #root h1 {
   color: #e8d5c4;
   text-align: center;
 }
-
 footer {
   color: #e8d5c4;
   text-align: center;
@@ -149,7 +132,6 @@ footer {
   font-size: 13px;
   opacity: 0.7;
 }
-
 footer a {
   color: #f5ede0;
 }
@@ -160,14 +142,12 @@ footer a {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
 @media (max-width: 750px) {
   .shows-container,
   .episodes-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
 @media (max-width: 500px) {
   .shows-container,
   .episodes-container {
